@@ -27,7 +27,11 @@ do
 	zypper -R $ROOT_DIR  ar http://download.opensuse.org/update/$version/ repo-update
 	zypper --gpg-auto-import-keys  -R $ROOT_DIR ref
 	zypper -n  -R $ROOT_DIR in zypper
-	rpm --root $ROOT_DIR -e --nodeps postfix udev dracut  dbus-1
+	for pkg in  postfix udev dracut  dbus-1 rsyslog wicked-service wicked fipscheck sysvinit-tools cron cronie systemd-bash-completion systemd-sysvinit libusb python3 kmod-compat bash-doc xz suse-module-tools perl-base-5 python3-setuptools python3-base aaa_base udev-mini perl-Bootloader
+	do
+		rpm --root $ROOT_DIR -e --nodeps $pkg 2>/dev/null
+	done
+
 	tar -C $ROOT_DIR -c . | docker import - $DOCKER_USER/opensuse_${version}:latest
 	echo $DOCKER_USER | docker login  # we must interact with it
 	docker push $DOCKER_USER/opensuse_${version}
