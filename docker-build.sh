@@ -37,5 +37,6 @@ do
 	docker push $DOCKER_USER/opensuse_${version}
 	docker rmi -f $DOCKER_USER/opensuse_${version}
 	sleep 3
+	umount  $ROOT_DIR/sys 2>/dev/null
 	rm -rf $ROOT_DIR
 done
