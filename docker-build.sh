@@ -27,8 +27,11 @@ do
 	zypper -R $ROOT_DIR  ar http://download.opensuse.org/update/$version/ repo-update
 	zypper --gpg-auto-import-keys  -R $ROOT_DIR ref
 	zypper -n  -R $ROOT_DIR in zypper
+
+	# packages to be removed
 	for pkg in  postfix udev dracut  dbus-1 rsyslog wicked-service wicked fipscheck sysvinit-tools cron cronie systemd-bash-completion systemd-sysvinit libusb python3 kmod-compat bash-doc xz suse-module-tools perl-base-5 python3-setuptools python3-base aaa_base udev-mini perl-Bootloader
 	do
+		# remove it
 		rpm --root $ROOT_DIR -e --nodeps $pkg 2>/dev/null
 	done
 
